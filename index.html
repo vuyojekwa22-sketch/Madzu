@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Letter For You 💗</title>
+
+<style>
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+body {
+min-height: 100vh;
+background: linear-gradient(135deg, #ffd6e7, #fff0f5, #fce4ec);
+font-family: Georgia, serif;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 20px;
+overflow-x: hidden;
+color: #92536d;
+}
+
+.heart {
+position: fixed;
+bottom: -40px;
+color: #ec83a8;
+animation: float 8s linear infinite;
+pointer-events: none;
+}
+
+@keyframes float {
+0% { transform: translateY(0) rotate(0); opacity: 0; }
+20% { opacity: .7; }
+100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}
+
+.screen {
+width: 100%;
+max-width: 520px;
+text-align: center;
+position: relative;
+z-index: 2;
+}
+
+/* ENVELOPE SCREEN */
+
+#intro {
+animation: appear 1s ease;
+}
+
+.small-text {
+color: #bd7893;
+font-style: italic;
+margin-bottom: 25px;
+}
+
+h1 {
+color: #d65d87;
+font-size: 30px;
+margin-bottom: 15px;
+}
+
+.envelope {
+width: 270px;
+height: 175px;
+margin: 65px auto 35px;
+position: relative;
+cursor: pointer;
+background: #f5a9c2;
+border-radius: 5px;
+box-shadow: 0 15px 30px #d68da866;
+transition: transform .3s;
+}
+
+.envelope:hover {
+transform: translateY(-7px);
+}
+
+.envelope-back {
+position: absolute;
+inset: 0;
+background: #e98cab;
+border-radius: 5px;
+}
+
+.flap {
+position: absolute;
+top: 0;
+left: 0;
+width: 0;
+height: 0;
+border-left: 135px solid transparent;
+border-right: 135px solid transparent;
+border-top: 105px solid #fbd0df;
+transform-origin: top;
+transition: transform 1s ease;
+z-index: 5;
+}
+
+.envelope-front {
+position: absolute;
+bottom: 0;
+width: 0;
+height: 0;
+border-left: 135px solid #f6b5cb;
+border-right: 135px solid #f6b5cb;
+border-bottom: 100px solid #e987aa;
+z-index: 4;
+}
+
+.letter-icon {
+position: absolute;
+top: 45px;
+left: 50%;
+transform: translateX(-50%);
+font-size: 60px;
+z-index: 3;
+}
+
+.seal {
+position: absolute;
+top: 77px;
+left: 50%;
+transform: translateX(-50%);
+z-index: 6;
+font-size: 32px;
+}
+
+.opened .flap {
+transform: rotateX(180deg);
+}
+
+.instruction {
+color: #b76e8a;
+font-size: 15px;
+animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+50% { opacity: .5; }
+}
+
+/* LETTER */
+
+#letter {
+display: none;
+opacity: 0;
+}
+
+#letter.show {
+display: block;
+animation: appear 1.2s forwards;
+}
+
+.paper {
+background: #fffdfd;
+padding: 35px 27px;
+border-radius: 18px;
+box-shadow: 0 15px 45px #c77a9a33;
+border: 2px solid #fff;
+text-align: left;
+line-height: 1.85;
+}
+
+.paper h2 {
+color: #d65d87;
+text-align: center;
+margin-bottom: 8px;
+font-size: 27px;
+}
+
+.date {
+text-align: center;
+color: #c58ba0;
+font-size: 12px;
+margin-bottom: 25px;
+font-style: italic;
+}
+
+.paper p {
+margin-bottom: 17px;
+font-size: 15px;
+}
+
+.pink {
+color: #d65d87;
+font-weight: bold;
+}
+
+.divider {
+text-align: center;
+color: #ec9bb7;
+margin: 22px 0;
+letter-spacing: 8px;
+}
+
+/* INVITATION */
+
+.invitation {
+background: #fff0f5;
+border: 1px dashed #e99ab5;
+border-radius: 15px;
+padding: 23px 15px;
+text-align: center;
+margin-top: 20px;
+}
+
+.invitation h3 {
+font-size: 23px;
+color: #d65d87;
+margin-bottom: 12px;
+}
+
+.invitation p {
+font-size: 14px;
+}
+
+button {
+padding: 13px 20px;
+border-radius: 30px;
+border: none;
+font-family: Georgia, serif;
+font-size: 14px;
+cursor: pointer;
+margin: 8px 3px 0;
+transition: .3s;
+}
+
+.yes {
+background: #e879a0;
+color: white;
+}
+
+.yes:hover {
+transform: scale(1.08);
+background: #d65d87;
+}
+
+.time {
+background: white;
+color: #bd7893;
+border: 1px solid #edbfd0;
+}
+
+#response {
+color: #d65d87;
+font-weight: bold;
+text-align: center;
+margin-top: 15px;
+font-size: 14px;
+}
+
+.signature {
+text-align: center;
+color: #d65d87;
+font-style: italic;
+font-size: 19px;
+margin-top: 25px;
+}
+
+.footer {
+text-align: center;
+font-size: 12px;
+color: #c28ba0;
+margin-top: 15px;
+}
+
+@keyframes appear {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+@media(max-width: 420px) {
+.paper { padding: 27px 19px; }
+h1 { font-size: 26px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="screen">
+
+<!-- FIRST SCREEN -->
+
+<div id="intro">
+
+<h1>Something Special For You MAMAKHE 💗</h1>
+
+<p class="small-text">
+I have something I've been wanting to tell you...
+</p>
+
+<div class="envelope" id="envelope" onclick="openLetter()">
+
+<div class="envelope-back"></div>
+
+<div class="letter-icon">💌</div>
+
+<div class="flap"></div>
+
+<div class="envelope-front"></div>
+
+<div class="seal">❤️</div>
+
+</div>
+
+<p class="instruction">
+Tap the envelope to open your letter ♡
+</p>
+
+</div>
+
+<!-- SECOND SCREEN -->
+
+<div id="letter">
+
+<div class="paper">
+
+<h2>My Everything 🌷</h2>
+
+<div class="date">A little message from my heart</div>
+
+<p>Molo Matshezi, ❤️</p>
+
+<p>
+I honestly don't even know where to begin.
+There are so many things I wish I could tell you
+and I know I said unganditatshi unless you want 
+to fix things but uyazitsala nana I cannot take it any longer.
+</p>
+
+<p>
+I miss you. I miss our conversations, your presence,
+your little ways and everything that made having you
+in my life so special.
+Sometimes I wish I could just skip the distance
+and have you right here with me.
+</p>
+
+<p>
+I know things between us haven't been perfect.
+We've misunderstood each other, had our differences
+and somehow allowed those differences to get between us.
+I know we both have things we could have handled better.
+</p>
+
+<p>
+But one thing I want you to know is that
+<span class="pink">you still hold a very special place in my heart.</span>
+I haven't stopped caring about you, and I haven't
+stopped wishing things could have turned out differently.
+</p>
+
+<p>
+I don't want to pretend that nothing happened.
+I want us to understand what happened, listen to each
+other and talk about the things we struggled with.
+I would love for us to have a chance to fix what is broken,
+if that's something we both want.
+</p>
+
+<div class="divider">♡ ♡ ♡</div>
+
+<div class="invitation">
+
+<h3>A November Date? 🥹💕</h3>
+
+<p>
+When you get back home in November,
+can I please take you on a date?
+Somewhere nice, just the two of us Mingxi.
+</p>
+
+<p>
+I want to see you, hold your hand if you're
+comfortable with that, talk about everything
+and finally have the conversation we've been
+missing.
+</p>
+
+<p>
+No pressure, no expectations.
+Just an opportunity for us to understand
+each other and see whether we can find our way
+back to something beautiful yhini Madzu.
+</p>
+
+<p style="font-weight:bold; color:#d65d87;">
+So, what do you say, beautiful? ❤️
+</p>
+
+<button class="yes" onclick="answerYes()">
+Yes, let's go! 💗
+</button>
+
+<button class="time" onclick="answerTime()">
+I need some time 🌸
+</button>
+
+<div id="response"></div>
+
+</div>
+
+<div class="signature">
+With all my love, Manci❤️
+</div>
+
+<div class="footer">
+I Love you so Much. ♡
+</div>
+
+</div>
+</div>
+</div>
+
+<script>
+
+// Open the envelope
+
+function openLetter() {
+
+const envelope = document.getElementById("envelope");
+
+envelope.classList.add("opened");
+
+setTimeout(() => {
+
+document.getElementById("intro").style.display = "none";
+
+document.getElementById("letter").classList.add("show");
+
+window.scrollTo({
+top: 0,
+behavior: "smooth"
+});
+
+}, 1100);
+}
+
+// Her response
+
+function answerYes() {
+
+document.getElementById("response").innerHTML =
+"You have no idea how happy this makes me. 🥹💕<br>" +
+"I'll be looking forward to seeing you.";
+
+celebration();
+}
+
+function answerTime() {
+
+document.getElementById("response").innerHTML =
+"That's okay, my dear. ❤️<br>" +
+"Take your time. I'll respect whatever you decide.";
+}
+
+// Floating hearts
+
+function floatingHearts() {
+
+const heart = document.createElement("div");
+
+heart.className = "heart";
+
+heart.innerHTML = ["♡", "💕", "💗", "♥"][
+Math.floor(Math.random() * 4)
+];
+
+heart.style.left = Math.random() * 100 + "vw";
+
+heart.style.fontSize = (15 + Math.random() * 20) + "px";
+
+heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+
+document.body.appendChild(heart);
+
+setTimeout(() => heart.remove(), 10000);
+}
+
+setInterval(floatingHearts, 600);
+
+// Celebration
+
+function celebration() {
+
+for(let i = 0; i < 35; i++) {
+
+setTimeout(() => {
+
+const heart = document.createElement("div");
+
+heart.innerHTML = "❤️";
+
+heart.style.position = "fixed";
+heart.style.left = Math.random() * 100 + "vw";
+heart.style.bottom = "-30px";
+heart.style.fontSize = "25px";
+heart.style.zIndex = "10";
+heart.style.pointerEvents = "none";
+heart.style.transition = "transform 3s, opacity 3s";
+
+document.body.appendChild(heart);
+
+setTimeout(() => {
+heart.style.transform = "translateY(-100vh)";
+heart.style.opacity = "0";
+}, 50);
+
+setTimeout(() => heart.remove(), 3200);
+
+}, i * 70);
+
+}
+}
+
+</script>
+
+</body>
+</html>
